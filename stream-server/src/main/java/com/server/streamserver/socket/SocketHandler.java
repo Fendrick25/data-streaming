@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -17,6 +16,7 @@ public class SocketHandler {
     private ServerSocket serverSocket;
 
     private OutputStream out;
+    private PrintWriter writer;
 
     @Autowired
     private SocketConfiguration socketConfiguration;
@@ -30,6 +30,9 @@ public class SocketHandler {
             log.info("Client connected: {}", clientSocket.getInetAddress().getHostAddress());
             SocketMessagePublisher.addClient(clientSocket);
             out = clientSocket.getOutputStream();
+            writer = new PrintWriter(out);
+            writer.println("From server: connected!");
+            writer.flush();
         }
 
     }

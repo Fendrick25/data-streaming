@@ -2,7 +2,7 @@ server:
   port: 9091
 
 socket:
-  host: 179.61.188.176
+  host: localhost
   port: 8890
 
 spring:
