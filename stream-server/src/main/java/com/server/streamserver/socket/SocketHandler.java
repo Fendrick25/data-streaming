@@ -15,8 +15,8 @@ import java.net.Socket;
 public class SocketHandler {
     private ServerSocket serverSocket;
 
-    private OutputStream out;
     private PrintWriter writer;
+    private BufferedReader in;
 
     @Autowired
     private SocketConfiguration socketConfiguration;
@@ -28,11 +28,9 @@ public class SocketHandler {
         while (true) {
             Socket clientSocket = serverSocket.accept();
             log.info("Client connected: {}", clientSocket.getInetAddress().getHostAddress());
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             SocketMessagePublisher.addClient(clientSocket);
-            out = clientSocket.getOutputStream();
-            writer = new PrintWriter(out);
-            writer.println("From server: connected!");
-            writer.flush();
+            log.info(in.readLine());
         }
 
     }
