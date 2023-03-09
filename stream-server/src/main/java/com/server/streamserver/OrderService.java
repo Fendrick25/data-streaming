@@ -38,6 +38,6 @@ public class OrderService {
 
             }
         }
-/*        log.info("{}", SocketMessagePublisher.getActiveClients());*/
+        log.info("{}", SocketMessagePublisher.getActiveClients());
     }
 }
